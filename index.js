@@ -16,6 +16,9 @@ const path  = require("path")
 const app = new express()
 app.use(express.json());
 
+app.get('/app', function(req,res){
+	res.json('Success.')
+})
 
 app.post('/trainingstatus', async function(req, res){
 	const host = req.body.host
