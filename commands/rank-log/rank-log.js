@@ -1,5 +1,5 @@
 const {SlashCommandBuilder, EmbedBuilder, MessageFlags, ButtonBuilder, ButtonStyle, ButtonInteraction, ActionRowBuilder, Embed} = require("discord.js")
-const {mongoDBPass} = require("/config.json")
+const {mongoDBPass} = require('../../config.json');
 const {PromoteDemote, needPromote} = require("../../modules/messageModule");
 const { Client } = require("undici");
 const MongoClient = require("mongodb").MongoClient;
