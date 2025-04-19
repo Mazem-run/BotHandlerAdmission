@@ -1,6 +1,6 @@
 const {SlashCommandBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ButtonInteraction, EmbedBuilder, MessageFlags, messageLink, User} = require("discord.js")
 const {needPromote} = require("../../modules/messageModule")
-const {mongoDBPass} = require("/config.json")
+const {mongoDBPass} = require('../../config.json');
 const MessageModule = require('../../modules/messageModule');
 const MongoClient = require("mongodb").MongoClient;
 const mongodb = new MongoClient(`mongodb+srv://frostybig1:${mongoDBPass}@cluster1.bdq3w2r.mongodb.net/`);
