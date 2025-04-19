@@ -6,6 +6,8 @@ module.exports = {
     .setName('promote-info')
     .setDescription('[LR] See information about promote for your next rank.'),
     async execute(interaction) {
+        const UV = interaction.member.roles.cache.find(r => r.name === "Un-Verified")
+        const LL = interaction.member.roles.cache.find(r => r.name === 'Labour Lottery')
         const AI = interaction.member.roles.cache.find(r => r.name === "Apprentice Inspector")
         const JI = interaction.member.roles.cache.find(r => r.name === "Junior Inspector")
         const I = interaction.member.roles.cache.find(r => r.name === "Inspector")
@@ -14,6 +16,18 @@ module.exports = {
         const AIEMbed = new EmbedBuilder()
         .setTitle('Apprentice Inspector - Junior Inspector')
         .setDescription('To advance to the next rank, you need to do the following:\n```You need work on a shift for 300 minutes.```')
+        .setColor('Aqua')
+        .setFooter({text: 'Admission Federation'})
+
+        const UVEmbed = new EmbedBuilder()
+        .setTitle('Un-Verified - Labour Lottery')
+        .setDescription('To advance to the next rank, you need to do the following:\n```You need pass interview or application.```')
+        .setColor('Aqua')
+        .setFooter({text: 'Admission Federation'})
+
+        const LLEmbed = new EmbedBuilder()
+        .setTitle('Labour Lottery - Apprentice Inspector')
+        .setDescription('To advance to the next rank, you need to do the following:\n```You need pass LL Training.```')
         .setColor('Aqua')
         .setFooter({text: 'Admission Federation'})
 
@@ -43,6 +57,10 @@ module.exports = {
             return await interaction.reply({embeds: [IEmbed], flags: MessageFlags.Ephemeral})
         } else if (SI) {
             return await interaction.reply({embeds: [SIEmbed], flags: MessageFlags.Ephemeral})
+        } else if (UV) {
+            return await interaction.reply({embeds: [UVEmbed], flags: MessageFlags.Ephemeral})
+        } else if (LL) {
+            return await interaction.reply({embeds: [LLEmbed], flags: MessageFlags.Ephemeral})
         }
 
     }
