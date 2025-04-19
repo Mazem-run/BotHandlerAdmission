@@ -16,7 +16,7 @@ module.exports = {
 		{name: 'Reason:', value: Reason, inline: true}
 	)
 	.setTimestamp()
-	return channel.send({content: '<&1272919464731742267>', embeds: [Embed]})
+	return channel.send({content: '<@&1272919464731742267>', embeds: [Embed]})
 
 },
   async PromoteDemote(client, username, NewRank, OldRank, Reason, Proof) {
