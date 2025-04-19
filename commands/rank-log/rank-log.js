@@ -1,5 +1,5 @@
 const {SlashCommandBuilder, EmbedBuilder, MessageFlags, ButtonBuilder, ButtonStyle, ButtonInteraction, ActionRowBuilder, Embed} = require("discord.js")
-const {mongoDBPass} = require('../../config.json');
+const {mongoDBPass, promotedemoteChannel} = require('../../config.json');
 const {PromoteDemote, needPromote} = require("../../modules/messageModule");
 const { Client } = require("undici");
 const MongoClient = require("mongodb").MongoClient;
@@ -9,7 +9,7 @@ const collection = db1.collection("data");
 
 module.exports = {
     data: new SlashCommandBuilder()
-    .setName('rank-log')
+    .setName('rank-promote-demote')
     .setDescription("[HR+] Make promote/demote log.")
     .addStringOption(option =>
         option
@@ -53,14 +53,29 @@ module.exports = {
         option
         .setName('proof')
         .setDescription('Please upload proof of Promote/Demote.')
-        .setRequired(true)
+        .setRequired(false)
     ),
     async execute(interaction){
         const username = interaction.options.getString('username')
         const NewRank = interaction.options.getString('new-rank')
         const OldRank = interaction.options.getString('old-rank')
-        const proof = interaction.options.getAttachment('proof')
+        const attachment = interaction.options.getAttachment('proof')
         const Reason = interaction.options.getString('reason')
+        const channel = interaction.guild.channels.cache.get('1358699245556990104');
+	
+	     const embed = new EmbedBuilder()
+	    .setTitle(`${OldRank} - ${NewRank}`)
+	    .setDescription(`Details:\n- Username: ${username}\n- Reason: ${Reason}\n- Proof: ` )
+	    .setColor('Aqua')
+	    .setTimestamp()
+
+        if (attachment?.contentType?.startsWith('image/')) {
+            embed
+                .setImage(attachment.url)
+        } else {
+            embed
+            .setDescription(`Details:\n- Username: ${username}\n- Reason: ${Reason}\n- Proof: Don't need. ` )
+        }
 
         const DeputyministerRole = interaction.member.roles.cache.find(r => r.name === "Deputy Minister")
         const MOARole = interaction.member.roles.cache.find(r => r.name === "Minister of Admissions")
@@ -73,7 +88,7 @@ module.exports = {
         if (NewRank === 'Supervisor' || NewRank === 'Cheif Inspector' || NewRank === 'Head Inspector' || NewRank === 'DOA'){
             if (DeputyministerRole || MOARole) {
                await interaction.reply({content: 'Success.', flags: MessageFlags.Ephemeral})
-               return PromoteDemote(client, username, NewRank, OldRank, Reason, proof.url)
+               return channel.send({embeds: [embed]})
             } else {
                 return interaction.reply({content: "You didn't have permissions to make this.", flags: MessageFlags.Ephemeral})
             }
@@ -82,14 +97,14 @@ module.exports = {
         if (NewRank === 'DM') {
             if (MOARole) {
                await interaction.reply({content: 'Success.', flags: MessageFlags.Ephemeral})
-               return PromoteDemote(client, username, NewRank, OldRank, Reason, proof.url)
+               return channel.send({embeds: [embed]})
             } else {
                 return interaction.reply({content: "You didn't have permissions to make this.", flags: MessageFlags.Ephemeral})
             }
         }
 
         await interaction.reply({content: "Success.", flags: MessageFlags.Ephemeral})
-        await PromoteDemote(client, username, NewRank, OldRank, Reason, proof.url)
-        await needPromote(client, username, NewRank, OldRank, Reason)
+        channel.send({embeds: [embed]})
+        console.log('Success')
     }
 }
