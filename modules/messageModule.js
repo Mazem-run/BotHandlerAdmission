@@ -1,6 +1,6 @@
 const {EmbedBuilder, ButtonBuilder, embedLength} = require("discord.js")
 const {needPromotechannel, promotedemoteChannel, trainingsChannel} = require('/config.json')
-const config = require('/config.json')
+const config = require('../config.json')
 
 module.exports = {
    async needPromote(client,username, NewRank, OldRank, Reason) {
