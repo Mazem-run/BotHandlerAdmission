@@ -16,7 +16,7 @@ const path  = require("path")
 const app = new express()
 app.use(express.json());
 
-app.get('/app', function(req,res){
+app.head('/app', function(req,res){
 	res.json('Success.')
 })
 
