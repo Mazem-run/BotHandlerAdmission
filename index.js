@@ -1,7 +1,7 @@
 // Require the necessary discord.js classes
 const { Client, Collection, Events, GatewayIntentBits, MessageFlags, EmbedBuilder, Embed,  } = require('discord.js');
 const {needPromote, PromoteDemote} = require("./modules/messageModule")
-const { token, needPromotechannel, mongoDBPass } = require('/config.json');
+const { token, needPromotechannel, mongoDBPass } = require('./config.json');
 const {Training} = require('./modules/messageModule')
 const MongoClient = require("mongodb").MongoClient;
 const mongodb = new MongoClient(`mongodb+srv://frostybig1:${mongoDBPass}@cluster1.bdq3w2r.mongodb.net/`);
