@@ -61,7 +61,7 @@ module.exports = {
         const OldRank = interaction.options.getString('old-rank')
         const attachment = interaction.options.getAttachment('proof')
         const Reason = interaction.options.getString('reason')
-        const channel = interaction.guild.channels.cache.get('1358699245556990104');
+        const channel = interaction.guild.channels.cache.get('1272919465427730507');
 	
 	     const embed = new EmbedBuilder()
 	    .setTitle(`${OldRank} - ${NewRank}`)
