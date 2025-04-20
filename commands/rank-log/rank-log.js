@@ -1,11 +1,4 @@
 const {SlashCommandBuilder, EmbedBuilder, MessageFlags, ButtonBuilder, ButtonStyle, ButtonInteraction, ActionRowBuilder, Embed} = require("discord.js")
-const {mongoDBPass, promotedemoteChannel} = require('../../config.json');
-const {PromoteDemote, needPromote} = require("../../modules/messageModule");
-const { Client } = require("undici");
-const MongoClient = require("mongodb").MongoClient;
-const mongodb = new MongoClient(`mongodb+srv://frostybig1:${mongoDBPass}@cluster1.bdq3w2r.mongodb.net/`);
-const db1 = mongodb.db("Admission");
-const collection = db1.collection("data");
 
 module.exports = {
     data: new SlashCommandBuilder()
