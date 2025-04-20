@@ -96,8 +96,12 @@ module.exports = {
             }
         }
 
-        await interaction.reply({content: "Success.", flags: MessageFlags.Ephemeral})
-        channel.send({embeds: [embed]})
-        console.log('Success')
+        try {
+	   await interaction.reply({content: "Success.", flags: MessageFlags.Ephemeral})
+           await channel.send({embeds: [embed]})
+           console.log('Success')
+	} catch(err) {
+	   console.log(err)
+	}
     }
 }
