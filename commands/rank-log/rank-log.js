@@ -17,6 +17,7 @@ module.exports = {
         .addChoices(
             {name: 'Un-Verified', value: 'Un-Verified'},
             {name: 'Labour Lottery', value: 'Labour Lottery'},
+	    {name: "Apprentice Inspector", value: 'Apprentice Inspector'},
             {name: 'Junior Inspector', value: 'Junior Inspector'},
             {name: 'Inspector', value: 'Inspector'},
             {name: 'Senior Inspector', value: 'Senior Inspector'},
