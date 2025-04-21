@@ -27,7 +27,7 @@ module.exports ={
         .addChoices(
             {name: 'Junior Inspector', value: 'Junior Inspector'},
             {name: 'Inspector', value: 'Inspector'},
-            {name: 'Senior Inspector', value: 'Senior Inspectir'}
+            {name: 'Senior Inspector', value: 'Senior Inspector'}
         )
         .setRequired(true)
     )
@@ -93,7 +93,7 @@ module.exports ={
         const DM =  userInstance.send({embeds: [DMEmbed], components: [Row]})
         const Table = {
             discordname: Username.user.username,
-            robloxusername: interaction.member.nickname,
+            robloxusername: Username.nickname,
             newrank: NewRank,
             oldrank: OldRank,
             messageID: '',
