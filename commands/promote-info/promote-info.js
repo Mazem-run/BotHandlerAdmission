@@ -12,6 +12,7 @@ module.exports = {
         const JI = interaction.member.roles.cache.find(r => r.name === "Junior Inspector")
         const I = interaction.member.roles.cache.find(r => r.name === "Inspector")
         const SI = interaction.member.roles.cache.find(r => r.name === "Senior Inspector")
+        const RankPrevention = interaction.member.roles.cache.find(r => r.name === "Rank Prevention")
 
         const AIEMbed = new EmbedBuilder()
         .setTitle('Apprentice Inspector - Junior Inspector')
@@ -48,7 +49,17 @@ module.exports = {
         .setDescription('This final rank of LRs, if you want get SV academy be active!')
         .setColor('Aqua')
         .setFooter({text: 'Admission Federation'})
+        
+        const RankPreventionEmbed = new EmbedBuilder()
+        .setTitle('Rank Prevention')
+        .setDescription("Hello! You now have have role Rank Prevention, with this role you can't up your rank. In order to lose this role, you need:\n```Pass T-Shirt owner rank```")
+        .setColor('Aqua')
+        .setFooter({text: 'Admission Federation'})
 
+
+        if (RankPrevention){
+            return await interaction.reply({embeds: [RankPreventionEmbed], flags: MessageFlags.Ephemeral})
+        }
         if (AI) {
             return await interaction.reply({embeds: [AIEMbed], flags: MessageFlags.Ephemeral})
         } else if (JI) {
