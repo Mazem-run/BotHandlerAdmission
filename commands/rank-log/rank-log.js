@@ -74,6 +74,7 @@ module.exports = {
         const DeputyministerRole = interaction.member.roles.cache.find(r => r.name === "Deputy Minister")
         const MOARole = interaction.member.roles.cache.find(r => r.name === "Minister of Admissions")
         const HRRole = interaction.member.roles.cache.find(r => r.name === "HR-High Rank")
+	const channelLogs = client.channels.cache.get('1272919467248324709')
 
         if (!HRRole) {
             return interaction.reply({content: "You didn't have permissions to make this.", flags: MessageFlags.Ephemeral})
@@ -100,6 +101,7 @@ module.exports = {
         try {
 	   await interaction.reply({content: "Success.", flags: MessageFlags.Ephemeral})
            await channel.send({embeds: [embed]})
+	   await channelLogs.send(`User ${interaction.member.nickname} used "/rank-log" command to promote ${username}, ${OldRank} - ${NewRank}`)
            console.log('Success')
 	} catch(err) {
 	   console.log(err)
