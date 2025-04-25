@@ -14,7 +14,7 @@ module.exports = {
             .setDescription('Select what you want announce.')
             .addChoices(
                 {name: 'Poll', value: 'Poll'},
-                {name: 'Drill', value: 'Drill'}
+                {name: 'Drill', value: 'Drill'},
             )
             .setRequired(true)
         )
@@ -22,6 +22,30 @@ module.exports = {
             option
             .setName('time')
             .setDescription('How long before the training starts. [JUST WRITE MINUTES, NO WORDS]')
+            .setRequired(true)
+        )
+    )
+    
+    .addSubcommand(option =>
+        option
+        .setName('poll-result')
+        .setDescription('Send the drill result.')
+        .addIntegerOption(option =>
+            option
+            .setName('approve-much')
+            .setDescription('How many approve emoji pressed.')
+            .setRequired(true)
+        )
+        .addIntegerOption(option =>
+            option
+            .setName('total')
+            .setDescription('Total votes.')
+            .setRequired(true)
+        )
+        .addStringOption(option =>
+            option
+            .setName('poll-status')
+            .setDescription('Poll status.')
             .setRequired(true)
         )
     )
@@ -106,6 +130,7 @@ module.exports = {
             const what = interaction.options.getString('type')
             const starttime = interaction.options.getInteger('time')
             const channel = interaction.guild.channels.cache.get('1272919465625129043');
+            const LogChannel = interaction.guild.channels.cache.get('1272919467248324709') 
             const PolLChannel = interaction.guild.channels.cache.get('1272919465625129044'); // NEED USE DRILL CHANNEL +
             if (!AccessRole) {
                return interaction.reply({content: "You didn't have permissions to use this command.", flags: MessageFlags.Ephemeral})
@@ -115,15 +140,18 @@ module.exports = {
                 const message = await PolLChannel.send('```Starting poll```' + '\n' + `**Host:** ${interaction.member.nickname}\n**Drill start in: **${starttime} minutes\n**React** <:Approved:1272931638170484848> **if you attend the training, or** <:Denied:1272931163698364458> **if you can't**.\n**Ping:** <@&1272919464584806439>`)
                 message.react('<:Approved:1272931638170484848>')
                 message.react('<:Denied:1272931163698364458>')
+                await LogChannel.send(`User ${interaction.member.nickname} used "/drill-announce (Poll)" command.`)
                 return await interaction.reply({content: 'Success.', flags: MessageFlags.Ephemeral})
             } else if (what === 'Drill') {
                 await channel.send('```Training starting```' + '\n\nJoin Altan to join the Training. PTS (Permission To Talk) is active. STS at the Statue and wait until the Training starts.\n' +`\n**Host:** ${interaction.member.nickname}\n**Drill start in: **${starttime} minutes\n**Link:** https://www.roblox.com/games/2024140489/Altan#!/game-instances\n` + '\n**Ping:** <@&1272919464584806439>\nStatus: Starting')
+                await LogChannel.send(`User ${interaction.member.nickname} used "/drill-announce (Drill)" command.`)
                 await interaction.reply({content: 'Success.', flags: MessageFlags.Ephemeral})
             }
-        } else if(interaction.options.getSubcommand() === 'status') {
+        } else if (interaction.options.getSubcommand() === 'status') {
             const AccessRole = interaction.member.roles.cache.find(r => r.name === "Drills Permission")
             const messageId = interaction.options.getString('messageid');
             const newStatus = interaction.options.getString('status')
+            const LogChannel = interaction.guild.channels.cache.get('1272919467248324709') 
 
             if (!AccessRole) {
                 return interaction.reply({content: "You didn't have permissions to use this command.", flags: MessageFlags.Ephemeral})
@@ -143,6 +171,8 @@ module.exports = {
                 });
                 
                 await message.edit(newContent);
+
+                await LogChannel.send(`User ${interaction.member.nickname} used "/drill-status" command.`)
                 
                 await interaction.reply({ 
                     content: `Session status changed to: ${newStatus}`, 
@@ -174,7 +204,8 @@ module.exports = {
             const passers = interaction.options.getString('passers');
             const note = interaction.options.getString('note');
             const proof = interaction.options.getAttachment('proof');
-            const channel = interaction.guild.channels.cache.get('1272919465625129042'); // NEED USE DRILL CHANNEL +
+            const channel = interaction.guild.channels.cache.get('1272919465625129042');
+            const LogChannel = interaction.guild.channels.cache.get('1272919467248324709') // NEED USE DRILL CHANNEL +
             if (!AccessRole) {
                 return interaction.reply({content: "You didn't have permissions to use this command.", flags: MessageFlags.Ephemeral})
              }
@@ -182,6 +213,21 @@ module.exports = {
             await channel.send('```Drill results```' + '\n' + '\n' + '\n' + `**Host:** ${host}\n\n**Co-Host:** ${coHost}\n\n**Helper(s):** ${helper}\n\n**Supervisor:** ${supervisor}\n\n**Number of attendees:** ${numberOfAttendees}\n\n**Passed:** ${passers}\n\n**Note:** ${note}\n\n**Proof:**`)
             await channel.send({files: [proof.url]})
             await interaction.reply({content: 'Success', flags: MessageFlags.Ephemeral})
+            await LogChannel.send(`User ${interaction.member.nickname} used "/drill-result" command.`)
+        } else if (interaction.options.getSubcommand() === 'poll-result') {
+            const ApproveEm = interaction.options.getInteger('approve-much')
+            const Total = interaction.options.getInteger('total')
+            const channel = interaction.guild.channels.cache.get('1358699268382130286');
+            const PollStatus = interaction.options.getString('poll-status')
+            const LogChannel = interaction.guild.channels.cache.get('1272919467248324709')
+
+            if (!AccessRole) {
+                return interaction.reply({content: "You didn't have permissions to use this command.", flags: MessageFlags.Ephemeral})
+            }
+
+            await channel.send('```Poll status```' + '\n' + '\n' + `**How many <:Approved:1272931638170484848>:** ${ApproveEm}\n**Total vote:** ${Total}\n**Poll Status:** ${PollStatus}`)
+            await LogChannel.send(`User ${interaction.member.nickname} used "/poll-result" command.`)
+
         }
     }
 }
