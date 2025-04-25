@@ -217,7 +217,7 @@ module.exports = {
         } else if (interaction.options.getSubcommand() === 'poll-result') {
             const ApproveEm = interaction.options.getInteger('approve-much')
             const Total = interaction.options.getInteger('total')
-            const channel = interaction.guild.channels.cache.get('1358699268382130286');
+            const channel = interaction.guild.channels.cache.get('1272919465625129044');
             const PollStatus = interaction.options.getString('poll-status')
             const LogChannel = interaction.guild.channels.cache.get('1272919467248324709')
 
