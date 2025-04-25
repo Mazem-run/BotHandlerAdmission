@@ -118,7 +118,7 @@ module.exports = {
                 await interaction.reply({content: 'Success.', flags: MessageFlags.Ephemeral})
             } else if (what === 'Drill') {
                 await channel.send('```Training starting```' + '\n\nJoin Altan to join the Training. PTS (Permission To Talk) is active. STS at the Statue and wait until the Training starts.\n' +`\n**Host:** ${interaction.member.nickname}\n**Drill start in: **${starttime} minutes\n**Link:** https://www.roblox.com/games/2024140489/Altan#!/game-instances\n` + '\n**Ping:** <@&1272919464584806439>\nStatus: Starting')
-                await interaction.reply({content: 'Success.', flags: MessageFlags.Ephemeral})
+              return await interaction.reply({content: 'Success.', flags: MessageFlags.Ephemeral})
             }
         } else if(interaction.options.getSubcommand() === 'status') {
             const AccessRole = interaction.member.roles.cache.find(r => r.name === "Drills Permission")
