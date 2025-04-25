@@ -112,15 +112,13 @@ module.exports = {
             }
 
             if (what === 'Poll') {
-                const message = PolLChannel.send('```Starting poll```' + '\n' + `**Host:** ${interaction.member.nickname}\n**Drill start in: **${starttime} minutes\n**React** <:Approved:1272931638170484848> **if you attend the training, or** <:Denied:1272931163698364458> **if you can't**.\n**Ping:** <@&1272919464584806439>`)
+                const message = await PolLChannel.send('```Starting poll```' + '\n' + `**Host:** ${interaction.member.nickname}\n**Drill start in: **${starttime} minutes\n**React** <:Approved:1272931638170484848> **if you attend the training, or** <:Denied:1272931163698364458> **if you can't**.\n**Ping:** <@&1272919464584806439>`)
                 message.react('<:Approved:1272931638170484848>')
                 message.react('<:Denied:1272931163698364458>')
-                interaction.reply({content: 'Success.', flags: MessageFlags.Ephemeral})
-                return
+                return await interaction.reply({content: 'Success.', flags: MessageFlags.Ephemeral})
             } else if (what === 'Drill') {
-              channel.send('```Training starting```' + '\n\nJoin Altan to join the Training. PTS (Permission To Talk) is active. STS at the Statue and wait until the Training starts.\n' +`\n**Host:** ${interaction.member.nickname}\n**Drill start in: **${starttime} minutes\n**Link:** https://www.roblox.com/games/2024140489/Altan#!/game-instances\n` + '\n**Ping:** <@&1272919464584806439>\nStatus: Starting')
-              interaction.reply({content: 'Success.', flags: MessageFlags.Ephemeral})
-              return
+                await channel.send('```Training starting```' + '\n\nJoin Altan to join the Training. PTS (Permission To Talk) is active. STS at the Statue and wait until the Training starts.\n' +`\n**Host:** ${interaction.member.nickname}\n**Drill start in: **${starttime} minutes\n**Link:** https://www.roblox.com/games/2024140489/Altan#!/game-instances\n` + '\n**Ping:** <@&1272919464584806439>\nStatus: Starting')
+                await interaction.reply({content: 'Success.', flags: MessageFlags.Ephemeral})
             }
         } else if(interaction.options.getSubcommand() === 'status') {
             const AccessRole = interaction.member.roles.cache.find(r => r.name === "Drills Permission")
