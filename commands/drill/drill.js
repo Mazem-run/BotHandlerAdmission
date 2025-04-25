@@ -216,6 +216,7 @@ module.exports = {
             await LogChannel.send(`User ${interaction.member.nickname} used "/drill-result" command.`)
         } else if (interaction.options.getSubcommand() === 'poll-result') {
             const ApproveEm = interaction.options.getInteger('approve-much')
+            const AccessRole = interaction.member.roles.cache.find(r => r.name === "Drills Permission")
             const Total = interaction.options.getInteger('total')
             const channel = interaction.guild.channels.cache.get('1272919465625129044');
             const PollStatus = interaction.options.getString('poll-status')
@@ -226,6 +227,7 @@ module.exports = {
             }
 
             await channel.send('```Poll status```' + '\n' + '\n' + `**How many <:Approved:1272931638170484848>:** ${ApproveEm}\n**Total vote:** ${Total}\n**Poll Status:** ${PollStatus}`)
+            await interaction.reply({content: 'Success', flags: MessageFlags.Ephemeral})
             await LogChannel.send(`User ${interaction.member.nickname} used "/poll-result" command.`)
 
         }
